@@ -8,8 +8,12 @@ public class Contas {
 	String[] contas = {
 			"vinicius2011x",
 			"admin",
-			"Estou",
-			"testnado"
+			"Estou"
+	};
+	String[] senhas = {
+			"senha2011x",
+			"sysadmin",
+			"eeeste"
 	};
 	
 	boolean cadastrado;
@@ -57,8 +61,16 @@ public class Contas {
 	}
 	
 	public int login() {
-		String[] clone = contas.clone();
-		Arrays.sort(clone);
-		return Arrays.binarySearch(clone, "vinicius2011x");
+		String[] contasOrg = contas.clone();
+		Arrays.sort(contasOrg);
+		String[] senhasOrg;
+		for(int i = 0; contasOrg.length <= i; i++ ) {
+			for (int i2 = 0; contasOrg.length <= i2; i2 ++) {
+				if (i2 == i) {
+					
+				}
+			}
+		} // EU NÃO SEI OQ ISSO FAZ EU SO TIVE UMA VISÃO E FIZ
+		return Arrays.binarySearch(contasOrg, "vinicius2011x");
 	}
 }
