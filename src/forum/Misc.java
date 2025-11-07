@@ -17,7 +17,7 @@ public class Misc {
 			
 			try
 		    {
-		        Thread.sleep(100);
+		        Thread.sleep(150);
 		    }
 		    catch(InterruptedException ex)
 		    {
@@ -95,17 +95,4 @@ public class Misc {
 		return valido;
 	}
 	
-	public void comandos(String comando) {
-		// isso vai ser MUITO porco mas eu n ligo
-		if (comando == null) {
-			Scanner scn = new Scanner(System.in);
-			comando = scn.nextLine();
-		}
-		
-		switch (comando.toLowerCase()) {
-		case "cadastro" :
-			break;
-		case "login" :
-		}
-	}
 }
