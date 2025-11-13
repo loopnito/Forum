@@ -1,7 +1,6 @@
 package forum;
 
 import java.text.Normalizer;
-import java.util.Scanner;
 
 public class Misc {
 	
@@ -48,25 +47,13 @@ public class Misc {
 				+ "\r\n- Cadastro: Leva você a tela de cadastro."
 				+ "\r\n- Login: Leva você a tela de login."
 				+ "\r\n- Profile: Leva você a tela do seu perfil."
-				+ "\r\n- PlaceholderViewForum: Leva você a tela de um forum."
-				+ "\r\n- PlaceholderViewPost: Leva você a um post."
-				+ "\r\n- PlacehlolderComandosAvancados: Mostra comandos mais avançados.");
+				+ "\r\n- Comandos: Mostra todos os comandos."
+				+ "\r\nO comando converte quaisquer acentos e letras maisculas."
+				+ "\r\nPara ver essa introdução novamente, digite 'intro' ou 'introdução'.");
 	}
 	
 	public boolean verificacao(String linhaVerificacao) {
 		boolean valido = true;
-		
-		if (linhaVerificacao == null) {
-			Scanner scn = new Scanner(System.in);
-			linhaVerificacao = scn.nextLine();
-		}
-		
-		/* isso vê se a linhaVerificação ta vazia, c tiver ela faz você completar
-		honestamente isso foi mais para facilitar um pouco minha vida... se eu esquecer de colocar o scanner pelo menos isso auto completa
-		mas eu vou admitir eu podia ter feito o comando "SAIR" aqui... ja foi né... mas também isso faria essa função bem especifica...
-		quer saber? funciona, isso que importa
-		eu não sei falar se funciona BEM... mas funciona */
-		
 		char[] lvArray = linhaVerificacao.toCharArray();
 				
 		if (linhaVerificacao.length() >= 3 && Normalizer.isNormalized(linhaVerificacao, Normalizer.Form.NFD) &&  linhaVerificacao.length() <= 20) {
@@ -74,6 +61,8 @@ public class Misc {
 				if (Character.isLetterOrDigit(lvArray[i]) == false ) {
 					if (lvArray[i] != '_') {
 						valido = false;
+					} else {
+						valido = true;
 					}
 				}
 			} 
@@ -93,6 +82,11 @@ public class Misc {
 		vou ser honesto, não quero tocar isso nunca mais */
 		
 		return valido;
+	}
+	
+	void comandos() {
+		System.out.println("Aqui estão todos os comandos:"
+				+ "\r\n'cmd', 'comando', 'comandos': Mostram os comandos disponiveis");
 	}
 	
 }
