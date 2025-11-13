@@ -49,7 +49,12 @@ public class MainP {
 			return;
 		case "test" :
 			System.out.println(c.isCadastrado());
+			c.setCadastrado(true);
+			System.out.println(c.isCadastrado());
+			c.cadastro();
 			return;
+		case "aaa":
+			System.out.println(c.isCadastrado());
 		default :
 			System.out.println("Comando não encontrado.");
 		}
