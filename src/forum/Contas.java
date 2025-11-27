@@ -147,12 +147,16 @@ public class Contas {
 		while(!success) { //verificação do user
 			for (int i = 0; i < contas.size(); i++) {
 				if (contas.get(i).contains(searchPass)) {
-					success = true;
-					conta = contas.get(i).split(" ");
-					contaCadastrada = conta[0];
-					contaSenha = conta[1];
-					i = contas.size();
-					System.out.println("Senha compativel!");
+					if (contas.get(i).contains(searchUser)) {
+						success = true;
+						conta = contas.get(i).split(" ");
+						contaCadastrada = conta[0];
+						contaSenha = conta[1];
+						i = contas.size();
+						System.out.println("Senha compativel!");
+					} else {
+						i = contas.size();
+					}
 				}
 			}
 			if (!success) {
@@ -204,9 +208,7 @@ public class Contas {
 		case "deslogar" :
 			
 		case "voltar" :
-			for (int i = 0; i < contas.size(); i ++) {
-				contas.get(i)
-			}
+			
 		default :
 			System.out.println("Comando não encontrado.");
 	    }

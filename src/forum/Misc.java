@@ -1,6 +1,7 @@
 package forum;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
 
 public class Misc {
 	
@@ -72,6 +73,16 @@ public class Misc {
 		};
 		
 		return valido;
+	}
+	
+	public boolean arrayVer(ArrayList<String> array) {
+		for (int i = 0; i < array.size(); i ++) {
+			
+		}
+		if (array.contains("hi")) {
+			System.out.println("hello");
+		}
+		return false;
 	}
 	
 	void comandos() {
