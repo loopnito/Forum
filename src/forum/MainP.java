@@ -27,6 +27,10 @@ public class MainP {
 				m.loading();
 				c.login();
 				break;
+			case "profile", "perfil", "p" :
+				m.loading();
+				c.profile();
+				break;
 			case "terminar" :
 				System.out.println("Você decidiu sair.");
 				System.exit(0);

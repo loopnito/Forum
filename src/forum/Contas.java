@@ -1,25 +1,27 @@
 package forum;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Contas {
 	//TODO: Completar profile
-	private boolean cadastrado;
-	private String contaCadastrada; //esse é o user
-	private String[] contasinfo = {
+	private String contaCadastrada = ""; //esse é o user
+	private String contaSenha = "";
+	private String[] contasadm = {
 			//primeiro é user segundo é senha :)
 			"admin 123admin",
 			"contatest 321test"
 	};
-	ArrayList<String> contas = new ArrayList<>(Arrays.asList(contasinfo));
+	ArrayList<String> contas = new ArrayList<>(Arrays.asList(contasadm));
 	
 	public void cadastro() {
-		if (cadastrado) {
+		if (!contaCadastrada.isBlank()) {
 			System.out.println("Usuário ja esta cadastrado.");
 			return;
 		}
+		boolean cadastrado = false;
 		String potentialUser = "";
 		String potentialPass = "";
 		Misc m = new Misc();
@@ -95,7 +97,8 @@ public class Contas {
 		}
 		contas.add(potentialUser + " " + potentialPass);
 		System.out.println("Usuário cadastrado com sucesso.");
-		
+		contaCadastrada = potentialUser;
+		contaSenha = potentialPass;
 		cadastrado = true;
 		return;
 	}
@@ -104,7 +107,7 @@ public class Contas {
 		/* isso não funciona muito bem em grande escala,
 		 mas isso devia ser feito no sql né então*/		
 		Scanner scn = new Scanner(System.in);
-		if (cadastrado) {
+		if (!contaCadastrada.isBlank()) {
 			System.out.println("Usuario ja esta logado.");
 			return;
 		}
@@ -147,6 +150,7 @@ public class Contas {
 					success = true;
 					conta = contas.get(i).split(" ");
 					contaCadastrada = conta[0];
+					contaSenha = conta[1];
 					i = contas.size();
 					System.out.println("Senha compativel!");
 				}
@@ -157,7 +161,55 @@ public class Contas {
 			}
 		}
 		
-		cadastrado = true;
 		return;
+	}
+	
+	public void profile() {
+		if (contaCadastrada.isBlank()) {
+			System.out.println("Usuário não cadastrado.");
+			return;
+		}
+		System.out.println("                                 .-.            ___  \r\n"
+				+ "                                /    \\    .-.  (   ) \r\n"
+				+ "   .-..     .--.    ___ .-.     | .`. ;  ( __)  | |  \r\n"
+				+ "  /    \\   /    \\  (   )   \\    | |(___) (''\")  | |  \r\n"
+				+ " ' .-,  ; |  .-. ;  | ' .-. ;   | |_      | |   | |  \r\n"
+				+ " | |  . | |  | | |  |  / (___) (   __)    | |   | |  \r\n"
+				+ " | |  | | |  |/  |  | |         | |       | |   | |  \r\n"
+				+ " | |  | | |  ' _.'  | |         | |       | |   | |  \r\n"
+				+ " | |  ' | |  .'.-.  | |         | |       | |   | |  \r\n"
+				+ " | `-'  ' '  `-' /  | |         | |       | |   | |  \r\n"
+				+ " | \\__.'   `.__.'  (___)       (___)     (___) (___) \r\n"
+				+ " | |                                                 \r\n"
+				+ "(___)                                                ");
+		System.out.println("Nome de usuário : " + contaCadastrada +
+				"\r\nComunidades que você participa:" + //TODO: Depois implementar
+				"Opções: "
+				+ " Mudar senha: digite 'mudarsenha' para mudar a senha.\r\n"
+				+ " Mudar nome de usuário: digite 'mudarnome' para mudar o nome de usuário. \r\n"
+				+ " Deslogar: digite 'deslogar' para deslogar.\r\n"
+				+ " Voltar: digite 'voltar' para voltar para a tela de comandos.\r\n"
+				+ "Por favor digite o comando.");
+		Scanner scn = new Scanner(System.in);
+		String comando = scn.nextLine();
+		
+		comando = Normalizer.normalize(comando, Normalizer.Form.NFD);
+	    comando = comando.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+	    
+	    switch (comando.toLowerCase()) {
+		case "mudarsenha" :
+			
+		case "mudarnome" :
+			
+		case "deslogar" :
+			
+		case "voltar" :
+			for (int i = 0; i < contas.size(); i ++) {
+				contas.get(i)
+			}
+		default :
+			System.out.println("Comando não encontrado.");
+	    }
+		
 	}
 }
