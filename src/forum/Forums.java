@@ -47,7 +47,9 @@ public class Forums {
 		};
 		int id = randomico.nextInt(0, titulos.length);
 		int votes = randomico.nextInt(-100, 100);
-		System.out.println("\n Forum: " + forums[id] + "\n-Titulo: " + titulos[id] + "\n-Conteudo: " + conteudos[id] + "\n-Votos: " + votes);
+		System.out.println("\n Forum: " + forums[id] + "\n-Titulo: " + titulos[id]
+				+ "\n-Conteudo: " + conteudos[id] + "\n-Votos: " + votes);
+		//TODO: talvez ver isso ai sla tem que fazer os negocio
 	}
 	
 }

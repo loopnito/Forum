@@ -50,12 +50,13 @@ public class Misc {
 				+ "\r\n- Comandos: Mostra todos os comandos."
 				+ "\r\nO comando converte quaisquer acentos e letras maisculas."
 				+ "\r\nPara ver essa introdução novamente, digite 'intro' ou 'introdução'.");
+		//TODO: Colocar outros comandos + atualizar
 	}
 	
 	public boolean verificacao(String linhaVerificacao) {
 		boolean valido = true;
 		char[] lvArray = linhaVerificacao.toCharArray();
-				
+		//TODO: Anotações da verificação		
 		if (linhaVerificacao.length() >= 3 && Normalizer.isNormalized(linhaVerificacao, Normalizer.Form.NFD) &&  linhaVerificacao.length() <= 20) {
 			for (int i = 0; i < lvArray.length; i ++) {
 				if (Character.isLetterOrDigit(lvArray[i]) == false ) {
@@ -70,23 +71,13 @@ public class Misc {
 			valido = false;
 		};
 		
-		/* isso checa por tipo... quase todos os negocio que você não quer em um username ou senha
-		os length é meio explicatorio, mas o isNormalized v c as letras tem accento
-		'tem um jeito mas eficiente usando a-' SHIIIIUUUU NÃO QUERO OUVIR
-		eu gastei tipo uma aula INTEIRA procurando um jeito 'mais eficiente' de fazer isso
-		e honestamente performance não é algo que eu quero me preocupar, pelo menos não agora
-		cara tipo, é uma DEMONSTRAÇÃO. quem liga se a demonstração demora tipo uns 0.000009 segundos a mais
-		eu SEIII que em outros programas eu tenho que ser mais cuidadoso mas...
-		Isso funciona.
-		
-		vou ser honesto, não quero tocar isso nunca mais */
-		
 		return valido;
 	}
 	
 	void comandos() {
 		System.out.println("Aqui estão todos os comandos:"
 				+ "\r\n'cmd', 'comando', 'comandos': Mostram os comandos disponiveis");
+		//TODO: Colocar todos os comandos.
 	}
 	
 }

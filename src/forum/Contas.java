@@ -1,17 +1,19 @@
 package forum;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Contas {
-	
+	//TODO: Completar profile
 	private boolean cadastrado;
-	
-	public boolean isCadastrado() {
-		return cadastrado;
-	}
-	public void setCadastrado(boolean bool) {
-		cadastrado = bool;
-	}
+	private String contaCadastrada; //esse é o user
+	private String[] contasinfo = {
+			//primeiro é user segundo é senha :)
+			"admin 123admin",
+			"contatest 321test"
+	};
+	ArrayList<String> contas = new ArrayList<>(Arrays.asList(contasinfo));
 	
 	public void cadastro() {
 		if (cadastrado) {
@@ -91,20 +93,20 @@ public class Contas {
 				}
 			}
 		}
-		String user = potentialUser + " " + potentialPass;
-		System.out.println(user);
+		contas.add(potentialUser + " " + potentialPass);
 		System.out.println("Usuário cadastrado com sucesso.");
-		System.out.println(cadastrado);
-		setCadastrado(true);
+		
+		cadastrado = true;
 		return;
 	}
 	
-	public boolean login() {
+	public void login() {
 		/* isso não funciona muito bem em grande escala,
 		 mas isso devia ser feito no sql né então*/		
+		Scanner scn = new Scanner(System.in);
 		if (cadastrado) {
 			System.out.println("Usuario ja esta logado.");
-			return false;
+			return;
 		}
 		Misc.linha();
 		System.out.println(""
@@ -118,7 +120,44 @@ public class Contas {
 				+ "                              ░██               \r\n"
 				+ "                        ░███████                \r\n");
 		Misc.linha();
-
-		return true;
+		
+		boolean success = false;
+		System.out.println("Digite seu nome de usuário.");
+		String[] conta;
+		String searchUser = scn.next() + " ";
+		while(!success) { //verificação do user
+			for (int i = 0; i < contas.size(); i++) {
+				if (contas.get(i).contains(searchUser)) {
+					success = true;
+					i = contas.size();
+					System.out.println("Usuário encontrado, por favor digite a senha");
+				}
+			}
+			if (!success) {
+				System.out.println("Usuário não encontrado, por favor tente novamente.");
+				searchUser = scn.next() + " ";
+			}
+		}
+		System.out.println("Escreva sua senha.");
+		success = false;
+		String searchPass = " " + scn.next();
+		while(!success) { //verificação do user
+			for (int i = 0; i < contas.size(); i++) {
+				if (contas.get(i).contains(searchPass)) {
+					success = true;
+					conta = contas.get(i).split(" ");
+					contaCadastrada = conta[0];
+					i = contas.size();
+					System.out.println("Senha compativel!");
+				}
+			}
+			if (!success) {
+				System.out.println("Senha não encontrada, por favor tente novamente.");
+				 searchPass = " " + scn.next();
+			}
+		}
+		
+		cadastrado = true;
+		return;
 	}
 }
