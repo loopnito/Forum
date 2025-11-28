@@ -8,7 +8,7 @@ public class MainP {
 	public static void main(String[] args) {
 		Misc m = new Misc();
 		Contas c = new Contas();
-
+		Forums f = new Forums();
 		m.introducao();
 		while (true) {
 			Scanner scn = new Scanner(System.in);
@@ -40,6 +40,8 @@ public class MainP {
 			case "comando", "comandos", "cmd", "docs", "doc", "documentacao" :
 				m.comandos();
 				break;
+			case "ver", "forum" :
+				f.overviewPost();
 			default :
 				System.out.println("Comando não encontrado.");
 			//TODO: Colocar todos os comandos.

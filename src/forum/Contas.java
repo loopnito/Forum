@@ -27,44 +27,33 @@ public class Contas {
 		Misc m = new Misc();
 		Scanner scn = new Scanner(System.in);
 		
-		Misc.linha();
-		System.out.println("\r\n"
-				+ "  ░██████                    ░██                          ░██                        \r\n"
-				+ " ░██   ░██                   ░██                          ░██                        \r\n"
-				+ "░██         ░██████    ░████████  ░██████    ░███████  ░████████ ░██░████  ░███████  \r\n"
-				+ "░██              ░██  ░██    ░██       ░██  ░██           ░██    ░███     ░██    ░██ \r\n"
-				+ "░██         ░███████  ░██    ░██  ░███████   ░███████     ░██    ░██      ░██    ░██ \r\n"
-				+ " ░██   ░██ ░██   ░██  ░██   ░███ ░██   ░██         ░██    ░██    ░██      ░██    ░██ \r\n"
-				+ "  ░██████   ░█████░██  ░█████░██  ░█████░██  ░███████      ░████ ░██       ░███████  \r\n");
-		Misc.linha();
-
-		System.out.println("Bem vindo(a) a pagina de cadastro.\r\n"
-				+ "Se deseja sair, digite 'SAIR'.\r\n"
-				+ "Digite o seu desejado nome de usuario:");
+		m.cadastroTitulo();
 		
 		while (cadastrado == false) {
 			potentialUser = scn.nextLine();
-			
-			if (potentialUser.equalsIgnoreCase("sair")) {
-				System.out.println("Você decidiu sair.");
-				return;
-			}
-			
-			cadastrado = m.verificacao(potentialUser);
-			System.out.println( m.verificacao(potentialUser));
-			if (cadastrado  == false) {
-				System.out.println("Nome de usuario invalido, veja se ele tem algum desses requisitos\r\n"
-						+ "- Tem mais de ou tem três letras e menos de vinte letras.\r\n"
-						+ "- Sem espaços ou characteres especiais (com exceção do '_').\r\n"
-						+ "Tente novamente.");
+			if (m.arrayVerUser(contas, potentialUser) >= 0) {
+				System.out.println("Nome de usuário indisponivel, alguem ja esta usando ele. \r\nPor favor tente outro nome.");
 			} else {
-				System.out.println("Nome de usuário compatível, deseja ter o username '" + potentialUser + "'?"
-						+ "\r\nPor favor digite 'sim' se quiser.");
-				if (scn.nextLine().equalsIgnoreCase("sim")) {
-					System.out.println("Username escolhido.");
+				if (potentialUser.equalsIgnoreCase("sair")) {
+					System.out.println("Você decidiu sair.");
+					return;
+				}
+				
+				cadastrado = m.verificacao(potentialUser);
+				if (cadastrado == false) {
+					System.out.println("Nome de usuario invalido, veja se ele tem algum desses requisitos\r\n"
+							+ "- Tem mais de ou tem três letras e menos de vinte letras.\r\n"
+							+ "- Sem espaços ou characteres especiais (com exceção do '_').\r\n"
+							+ "Tente novamente.");
 				} else {
-					cadastrado = false;
-					System.out.println("Por favor escolha outro username.");
+					System.out.println("Nome de usuário compatível, deseja ter o username '" + potentialUser + "'?"
+							+ "\r\nPor favor digite 'sim' se quiser.");
+					if (scn.nextLine().equalsIgnoreCase("sim")) {
+						System.out.println("Username escolhido.");
+					} else {
+						cadastrado = false;
+						System.out.println("Por favor escolha outro username.");
+					}
 				}
 			}
 		}
@@ -107,36 +96,24 @@ public class Contas {
 		/* isso não funciona muito bem em grande escala,
 		 mas isso devia ser feito no sql né então*/		
 		Scanner scn = new Scanner(System.in);
+		Misc m = new Misc();
 		if (!contaCadastrada.isBlank()) {
 			System.out.println("Usuario ja esta logado.");
 			return;
 		}
-		Misc.linha();
-		System.out.println(""
-				+ "░██                               ░██           \r\n"
-				+ "░██                                             \r\n"
-				+ "░██          ░███████   ░████████ ░██░████████  \r\n"
-				+ "░██         ░██    ░██ ░██    ░██ ░██░██    ░██ \r\n"
-				+ "░██         ░██    ░██ ░██    ░██ ░██░██    ░██ \r\n"
-				+ "░██         ░██    ░██ ░██   ░███ ░██░██    ░██ \r\n"
-				+ "░██████████  ░███████   ░█████░██ ░██░██    ░██ \r\n"
-				+ "                              ░██               \r\n"
-				+ "                        ░███████                \r\n");
-		Misc.linha();
-		
+		m.loginTitulo();
 		boolean success = false;
-		System.out.println("Digite seu nome de usuário.");
-		String[] conta;
+		System.out.println("Digite seu nome de usuário. \r\n Se desejas sair, digite 'sair'.");
+		
 		String searchUser = scn.next() + " ";
 		while(!success) { //verificação do user
-			for (int i = 0; i < contas.size(); i++) {
-				if (contas.get(i).contains(searchUser)) {
-					success = true;
-					i = contas.size();
-					System.out.println("Usuário encontrado, por favor digite a senha");
-				}
+			int temp = m.arrayVerUser(contas, searchUser);
+			if (temp < 0) {
+				success = true;
 			}
-			if (!success) {
+			if (success) {
+				System.out.println("Usuário encontrado, por favor digite a senha.");
+			} else {
 				System.out.println("Usuário não encontrado, por favor tente novamente.");
 				searchUser = scn.next() + " ";
 			}
@@ -144,57 +121,36 @@ public class Contas {
 		System.out.println("Escreva sua senha.");
 		success = false;
 		String searchPass = " " + scn.next();
-		while(!success) { //verificação do user
-			for (int i = 0; i < contas.size(); i++) {
-				if (contas.get(i).contains(searchPass)) {
-					if (contas.get(i).contains(searchUser)) {
-						success = true;
-						conta = contas.get(i).split(" ");
-						contaCadastrada = conta[0];
-						contaSenha = conta[1];
-						i = contas.size();
-						System.out.println("Senha compativel!");
-					} else {
-						i = contas.size();
-					}
-				}
-			}
-			if (!success) {
+		while(!success) {
+			int var = m.arrayVerSenha(contas, searchPass, searchUser);
+			if (var > -1) {
+				String[] conta;
+				conta = contas.get(var).split(" ");
+				contaCadastrada = conta[0];
+				contaSenha = conta[1];
+				System.out.println("Senha compativel, conta logada. \r\nVoltando para comandos...");
+				return;
+			} else {
 				System.out.println("Senha não encontrada, por favor tente novamente.");
-				 searchPass = " " + scn.next();
+				searchPass = " " + scn.next();
+				return;
 			}
 		}
-		
-		return;
 	}
 	
 	public void profile() {
+		Misc m = new Misc();
+		Scanner scn = new Scanner(System.in);
+		
 		if (contaCadastrada.isBlank()) {
 			System.out.println("Usuário não cadastrado.");
 			return;
 		}
-		System.out.println("                                 .-.            ___  \r\n"
-				+ "                                /    \\    .-.  (   ) \r\n"
-				+ "   .-..     .--.    ___ .-.     | .`. ;  ( __)  | |  \r\n"
-				+ "  /    \\   /    \\  (   )   \\    | |(___) (''\")  | |  \r\n"
-				+ " ' .-,  ; |  .-. ;  | ' .-. ;   | |_      | |   | |  \r\n"
-				+ " | |  . | |  | | |  |  / (___) (   __)    | |   | |  \r\n"
-				+ " | |  | | |  |/  |  | |         | |       | |   | |  \r\n"
-				+ " | |  | | |  ' _.'  | |         | |       | |   | |  \r\n"
-				+ " | |  ' | |  .'.-.  | |         | |       | |   | |  \r\n"
-				+ " | `-'  ' '  `-' /  | |         | |       | |   | |  \r\n"
-				+ " | \\__.'   `.__.'  (___)       (___)     (___) (___) \r\n"
-				+ " | |                                                 \r\n"
-				+ "(___)                                                ");
-		System.out.println("Nome de usuário : " + contaCadastrada +
-				"\r\nComunidades que você participa:" + //TODO: Depois implementar
-				"Opções: "
-				+ " Mudar senha: digite 'mudarsenha' para mudar a senha.\r\n"
-				+ " Mudar nome de usuário: digite 'mudarnome' para mudar o nome de usuário. \r\n"
-				+ " Deslogar: digite 'deslogar' para deslogar.\r\n"
-				+ " Voltar: digite 'voltar' para voltar para a tela de comandos.\r\n"
-				+ "Por favor digite o comando.");
-		Scanner scn = new Scanner(System.in);
+		
+		m.perfilTitulo();
+		
+		m.perfilComandos(contaCadastrada);
+		
 		String comando = scn.nextLine();
 		
 		comando = Normalizer.normalize(comando, Normalizer.Form.NFD);
@@ -204,9 +160,25 @@ public class Contas {
 		case "mudarsenha" :
 			
 		case "mudarnome" :
-			
+			System.out.println("Tem certeza que quer mudar o seu nome de usuário? \r\nSe sim, digite seu nome de usuário para confirmar.");
+			comando = scn.next();
+			if (comando.equals(contaCadastrada)) {
+				System.out.println("Por favor digite seu novo nome de usuário");
+				String velhonome = contaCadastrada;
+				comando = scn.next();
+				if (comando == velhonome) {
+					System.out.println("Seu nome novo não pode ser o mesmo do que o antigo.");
+					break;
+				}
+				int temp = m.arrayVerUser(contas, velhonome);
+				int temp2 = m.arrayVerUser(contas, comando);
+				//TODO: depois terminar
+			}
 		case "deslogar" :
-			
+			System.out.println("Você deslogou com sucesso");
+			contaCadastrada = "";
+			contaSenha = "";
+			break;
 		case "voltar" :
 			
 		default :
