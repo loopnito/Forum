@@ -78,6 +78,8 @@ public class Forums {
 				status = "upvotado";
 				votes++;
 				System.out.println("Votos: " + votes + "\r\nDesvotado.");
+				break;
+
 			} else if (comando == "comentar") {
 				System.out.println("Por favor digite o que deseje comentar.");
 				String com = scn.next();
@@ -86,9 +88,13 @@ public class Forums {
 				if (scn.next() == "sim") {
 					System.out.println("Postado! Aqui esta seu comentario: \r\n"+com);
 				}
+				break;
 			} else if (comando == "retornar") {
 				quersair = true;
 				System.out.println("Retornando...");
+			} else {
+				System.out.println("Tente novamente");
+				comando = scn.next();
 			}
 		}
 		
