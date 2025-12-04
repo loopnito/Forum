@@ -40,6 +40,7 @@ public class MainP {
 				break;
 			case "ver", "forum" :
 				f.overviewPost();
+				break;
 			default :
 				System.out.println("Comando não encontrado.");
 			//TODO: Colocar todos os comandos.

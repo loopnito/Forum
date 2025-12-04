@@ -47,8 +47,9 @@ public class Forums {
 	private int votes;
 	
 	public void overviewPost() {
+
 		Scanner scn = new Scanner(System.in);
-		int id = r.nextInt(0, allForumPosts.size());
+		int id = r.nextInt(0 , 1); //1, allForumPosts.size()
 		votes = r.nextInt(-100, 100);
 		String post = allForumPosts.get(id);
 		int idpraverbonito = id + 1;
@@ -62,8 +63,10 @@ public class Forums {
 		comando = comando.toLowerCase();
 		String status = "";
 		boolean quersair = false;
+	
 		while (!quersair) {
-			if (comando == "down") {
+			switch (comando.toLowerCase()) {
+			case "down":
 				if (status == "desvotado") {
 					System.out.println("Você ja desvotou!");
 				}
@@ -71,7 +74,7 @@ public class Forums {
 				votes--;
 				System.out.println("Votos: " + votes + "\r\nDesvotado.");
 				break;
-			} else if (comando == "up") {
+			case "up":
 				if (status == "upvotado") {
 					System.out.println("Você ja votou!");
 				}
@@ -79,23 +82,21 @@ public class Forums {
 				votes++;
 				System.out.println("Votos: " + votes + "\r\nDesvotado.");
 				break;
-
-			} else if (comando == "comentar") {
+			case "comentar":
 				System.out.println("Por favor digite o que deseje comentar.");
 				String com = scn.next();
 				System.out.println("Tem certeza que quer postar esse comentario? Se lembre que se infrigir as regras ele pode ser"
-						+ "deletado ou você pode até ser banido.");
-				if (scn.next() == "sim") {
+						+ " deletado ou você pode até ser banido.");
+				if (scn.next().equalsIgnoreCase("sim")) {
 					System.out.println("Postado! Aqui esta seu comentario: \r\n"+com);
 				}
 				break;
-			} else if (comando == "retornar") {
+			case "retornar":
 				quersair = true;
 				System.out.println("Retornando...");
-			} else {
-				System.out.println("Tente novamente");
-				comando = scn.next();
-			}
+				return;
+			} 
+			comando = scn.next();
 		}
 		
 		//TODO: talvez ver isso ai sla tem que fazer os negocio
