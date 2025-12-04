@@ -187,6 +187,7 @@ public class Contas {
 	
 	public boolean verSeCadastrado() {
 		if (!contaCadastrada.isBlank()) {
+			System.out.println(contaCadastrada);
 			return true;
 		}
 		return false;
