@@ -49,7 +49,7 @@ public class Forums {
 	public void overviewPost() {
 
 		Scanner scn = new Scanner(System.in);
-		int id = r.nextInt(0 , 1); //1, allForumPosts.size()
+		int id = r.nextInt(1, allForumPosts.size());
 		votes = r.nextInt(-100, 100);
 		String post = allForumPosts.get(id);
 		int idpraverbonito = id + 1;
@@ -69,6 +69,7 @@ public class Forums {
 			case "down":
 				if (status == "desvotado") {
 					System.out.println("Você ja desvotou!");
+					break;
 				}
 				status = "desvotado";
 				votes--;
@@ -77,6 +78,7 @@ public class Forums {
 			case "up":
 				if (status == "upvotado") {
 					System.out.println("Você ja votou!");
+					break;
 				}
 				status = "upvotado";
 				votes++;
