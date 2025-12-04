@@ -47,11 +47,6 @@ public class Forums {
 	private int votes;
 	
 	public void overviewPost() {
-		Contas c = new Contas();
-		if (c.verSeCadastrado() == false) {
-			System.out.println("Usuario não esta cadastrado!");
-			return;
-		}
 		Scanner scn = new Scanner(System.in);
 		int id = r.nextInt(0, allForumPosts.size());
 		votes = r.nextInt(-100, 100);
