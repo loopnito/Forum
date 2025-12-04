@@ -103,12 +103,12 @@ public class Contas {
 		}
 		m.loginTitulo();
 		boolean success = false;
-		System.out.println("Digite seu nome de usuário. \r\n Se desejas sair, digite 'sair'.");
+		System.out.println("Digite seu nome de usuário. \r\nSe desejas sair, digite 'sair'.");
 		
 		String searchUser = scn.next() + " ";
 		while(!success) { //verificação do user
 			int temp = m.arrayVerUser(contas, searchUser);
-			if (temp < 0) {
+			if (temp > 0) {
 				success = true;
 			}
 			if (success) {
@@ -133,7 +133,6 @@ public class Contas {
 			} else {
 				System.out.println("Senha não encontrada, por favor tente novamente.");
 				searchPass = " " + scn.next();
-				return;
 			}
 		}
 	}

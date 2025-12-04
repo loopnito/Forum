@@ -35,7 +35,7 @@ public class Misc {
 		System.out.println("\r\nCarregado!");
 	}
 	
-	//VERIFICAÇÃO
+	//VERIFICAÇÃO/NORMALIZADORES
 	
 	public boolean verificacao(String linhaVerificacao) {
 		boolean valido = true;
@@ -79,6 +79,12 @@ public class Misc {
 			}
 		}
 		return -1;
+	}
+	
+	public String normalizar(String cmd) {
+		cmd = Normalizer.normalize(cmd, Normalizer.Form.NFD);
+		cmd = cmd.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+		return cmd;
 	}
 	//TUTORIAIS DE COMANDOS
 	

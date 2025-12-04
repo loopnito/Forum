@@ -1,6 +1,5 @@
 package forum;
 
-import java.text.Normalizer;
 import java.util.Scanner;
 
 public class MainP {
@@ -15,8 +14,7 @@ public class MainP {
 			System.out.println("Por favor digite o comando.");
 			String comando = scn.nextLine();
 			
-			comando = Normalizer.normalize(comando, Normalizer.Form.NFD);
-		    comando = comando.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+			comando = m.normalizar(comando);
 		    
 			switch (comando.toLowerCase()) {
 			case "cadastro" :

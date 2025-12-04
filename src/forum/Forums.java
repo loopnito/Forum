@@ -3,27 +3,113 @@ package forum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Forums {
 	Random r = new Random();
+	Misc m = new Misc();
+	
 	private int numTotalPosts = 9; //isso faz o id dos posts
 	private int numTotalForums = 3; //isso faz o id dos forums
-	String[][] dft = {
-			{},
-			{},
-			{}
-	};
-	ArrayList<String> forumPosts = new ArrayList<>();
+	
+	private String f1Nome = "forum1";
+	private String f2Nome = "forum2";
+	private String f3Nome = "forum3";
+	private String f4Nome = "";
+	private String f5Nome = "";
+	private String f6Nome = "";
+	private String f7Nome = "";
+	private String f8Nome = "";
+	private String f9Nome = "";
+	private String f10Nome = "";
+	
+	private String[] f1info = {"forum 1, post 1", "Forum 1, post 2", "forum 1, post 3"};
+	private ArrayList<String> f1 = new ArrayList<>(Arrays.asList(f1info));
+	private String[] f2info = {"forum 2, post 1", "forum 2, post 2", "forum 2, post 3"};
+	private ArrayList<String> f2 = new ArrayList<>(Arrays.asList(f2info));
+	private String[] f3info = {"forum 3, post 1", "forum 3, post 2", "forum 3, post 3"};
+	private ArrayList<String> f3 = new ArrayList<>(Arrays.asList(f3info));
+	//hard-coding my odiado
+	private ArrayList<String> f4 = new ArrayList<>();
+	private ArrayList<String> f5 = new ArrayList<>();
+	private ArrayList<String> f6 = new ArrayList<>();
+	private ArrayList<String> f7 = new ArrayList<>();
+	private ArrayList<String> f8 = new ArrayList<>();
+	private ArrayList<String> f9 = new ArrayList<>();
+	private ArrayList<String> f10 = new ArrayList<>();
+	
+	private String[] aFPinfo = {"forum 1, post 1", "forum 1, post 2", "forum 1, post 3",
+				"forum 2, post 1", "forum 2, post 2", "forum 2, post 3",
+				"forum 3, post 1", "forum 3, post 2", "forum 3, post 3"};
+	private ArrayList<String> allForumPosts = new ArrayList<>(Arrays.asList(aFPinfo));
+	private String[] aFinfo = {f1Nome, f2Nome, f3Nome};
+	private ArrayList<String> allForums = new ArrayList<>(Arrays.asList(aFinfo));
+	private int votes;
 	
 	public void overviewPost() {
+		Scanner scn = new Scanner(System.in);
+		int id = r.nextInt(0, allForumPosts.size());
+		votes = r.nextInt(-100, 100);
+		String post = allForumPosts.get(id);
+		int idpraverbonito = id + 1;
+		System.out.println("\nForum: " + allForums.get(getForum(post)) +  "\n-Id: " + idpraverbonito
+				+  "\n-Conteudo: " + allForumPosts.get(id) + "\n-Votos: " + votes);
+		System.out.println("Como desejas interagir com o post?\r\n 'down' - colocar um voto a menos"
+				+ "\r\n 'up' - colocar um voto a mais \r\n 'comentar' - escrever um comentário \r\n"
+				+ " 'retornar' - para retornar");
+		String comando = scn.nextLine();
+		comando = m.normalizar(comando);
+		String status = "";
+		switch (comando.toLowerCase()) {
+		case "down":
+			if (status == "desvotado") {
+				System.out.println("Você ja desvotou!");
+			}
+			status = "desvotado";
+			votes--;
+			System.out.println("Votos: " + votes + "\r\nDesvotado.");
+			break;
+		case "up":
+			if (status == "upvotado") {
+				System.out.println("Você ja votou!");
+			}
+			status = "upvotado";
+			break;
+
+		case "comentar":
+			
+		case "retornar":
+			return;
+		}
 		
-		int id = r.nextInt(0, titulos.length);
-		int votes = r.nextInt(-100, 100);
-		System.out.println("\nForum: " + forums[id] + "\n-Titulo: " + titulos[id] +  "\n-Id: " + id
-				+  "\n-Conteudo: " + conteudos[id] + "\n-Votos: " + votes);
+		
 		//TODO: talvez ver isso ai sla tem que fazer os negocio
 	}
 	
+	public int getForum(String str) {
+		if (f1.contains(str)) {
+			return 0;
+		} else if (f2.contains(str)) {
+			return 1;
+		} else if (f3.contains(str)) {
+			return 2;
+		} else if (f4.contains(str)) {
+			return 3;
+		} else if (f5.contains(str)) {
+			return 4;
+		} else if (f6.contains(str)) {
+			return 5;
+		} else if (f7.contains(str)) {
+			return 6;
+		} else if (f8.contains(str)) {
+			return 7;
+		} else if (f9.contains(str)) {
+			return 8;
+		} else if (f10.contains(str)) {
+			return 9;
+		}
+		return -1; 
+	}
 }
 /*
  * "forum1"
