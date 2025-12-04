@@ -183,6 +183,12 @@ public class Contas {
 		default :
 			System.out.println("Comando não encontrado.");
 	    }
-		
+	}
+	
+	public boolean verSeCadastrado() {
+		if (!contaCadastrada.isBlank()) {
+			return true;
+		}
+		return false;
 	}
 }

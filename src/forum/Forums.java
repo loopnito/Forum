@@ -47,6 +47,11 @@ public class Forums {
 	private int votes;
 	
 	public void overviewPost() {
+		Contas c = new Contas();
+		if (c.verSeCadastrado() == false) {
+			System.out.println("Usuario não esta cadastrado!");
+			return;
+		}
 		Scanner scn = new Scanner(System.in);
 		int id = r.nextInt(0, allForumPosts.size());
 		votes = r.nextInt(-100, 100);
@@ -59,29 +64,38 @@ public class Forums {
 				+ " 'retornar' - para retornar");
 		String comando = scn.nextLine();
 		comando = m.normalizar(comando);
+		comando = comando.toLowerCase();
 		String status = "";
-		switch (comando.toLowerCase()) {
-		case "down":
-			if (status == "desvotado") {
-				System.out.println("Você ja desvotou!");
+		boolean quersair = false;
+		while (!quersair) {
+			if (comando == "down") {
+				if (status == "desvotado") {
+					System.out.println("Você ja desvotou!");
+				}
+				status = "desvotado";
+				votes--;
+				System.out.println("Votos: " + votes + "\r\nDesvotado.");
+				break;
+			} else if (comando == "up") {
+				if (status == "upvotado") {
+					System.out.println("Você ja votou!");
+				}
+				status = "upvotado";
+				votes++;
+				System.out.println("Votos: " + votes + "\r\nDesvotado.");
+			} else if (comando == "comentar") {
+				System.out.println("Por favor digite o que deseje comentar.");
+				String com = scn.next();
+				System.out.println("Tem certeza que quer postar esse comentario? Se lembre que se infrigir as regras ele pode ser"
+						+ "deletado ou você pode até ser banido.");
+				if (scn.next() == "sim") {
+					System.out.println("Postado! Aqui esta seu comentario: \r\n"+com);
+				}
+			} else if (comando == "retornar") {
+				quersair = true;
+				System.out.println("Retornando...");
 			}
-			status = "desvotado";
-			votes--;
-			System.out.println("Votos: " + votes + "\r\nDesvotado.");
-			break;
-		case "up":
-			if (status == "upvotado") {
-				System.out.println("Você ja votou!");
-			}
-			status = "upvotado";
-			break;
-
-		case "comentar":
-			
-		case "retornar":
-			return;
 		}
-		
 		
 		//TODO: talvez ver isso ai sla tem que fazer os negocio
 	}
